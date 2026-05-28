@@ -1,4 +1,5 @@
 <h1>Mano Slaptažodžių Saugykla</h1>
+
 <a href="index.php?logout=1" style="color: red;">Atsijungti</a>
 <hr>
 
@@ -11,7 +12,8 @@
     <button type="submit" name="generate">Generuoti</button>
 </form>
 
-<?php if (!empty($generatedPassword)): ?>
+<?php //Patikrina, ar kintamajame yra sugeneruotas slaptažodis
+if (!empty($generatedPassword)): ?>
     <p style="color: green; font-size: 18px;">
         Sugeneruotas slaptažodis: <b><?php echo htmlspecialchars($generatedPassword); ?></b>
     </p>
@@ -27,7 +29,6 @@
     </p>
     <p>
         Slaptažodis:<br>
-        <!-- Jei slaptažodis buvo sugeneruotas, jis automatiškai įkris į šį laukelį -->
         <input type="text" name="gen_password" value="<?php echo !empty($generatedPassword) ? htmlspecialchars($generatedPassword) : ''; ?>" required>
     </p>
     <button type="submit" name="save_password">Saugoti į DB (Šifruoti)</button>
@@ -42,8 +43,10 @@
         <th>Slaptažodis (Atkoduotas)</th>
         <th>Išsaugojimo data</th>
     </tr>
-    <?php if (!empty($myPasswords)): ?>
-        <?php foreach ($myPasswords as $p): ?>
+    <?php //Patikrina, ar vartotojas išvis turi išsaugotų slaptažodžių
+    if (!empty($myPasswords)): ?>
+        <?php //Ciklas, kuris eina per kiekvieną DB rastą slaptažodžio eilutę
+        foreach ($myPasswords as $p): ?>
             <tr>
                 <td><?php echo htmlspecialchars($p['title']); ?></td>
                 <td><?php echo htmlspecialchars($p['decrypted_password']); ?></td>
